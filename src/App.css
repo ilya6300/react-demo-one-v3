@@ -1,3 +1,7 @@
+* {
+  margin: 0;
+  padding: 0;
+}
 .App {
   text-align: center;
 }
@@ -7,32 +11,80 @@
   pointer-events: none;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.app-container {
+  margin: 2vw;
   display: flex;
-  flex-direction: column;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  gap: 40px;
+}
+.title {
+  margin: 15px 0px 25px;
+}
+.info-api {
+  margin: 15px 30px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #272727;
+  text-align: start;
+}
+.one-container {
+  background: rgb(203 152 60 / 80%);
+  border-radius: 12px;
+  box-shadow: 0px 0px 8px 1px black;
+  max-width: 500px;
+  min-width: 350px;
+  width: 100%;
+  height: 100%;
+  display: block;
+  margin: auto;
+}
+.card {
+  cursor: pointer;
+  max-width: 440px;
+  width: 95%;
+  height: 90px;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0px 0px 8px 1px black;
+  transition: transform 0.5s ease;
+  display: flex;
+  justify-content: space-evenly;
   align-items: center;
+}
+.lilichka-good {
+  display: flex;
+  flex-wrap: wrap;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  gap: 10px;
 }
-
-.App-link {
-  color: #61dafb;
+.card:hover {
+  transform: scale(1.08);
 }
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.card-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+}
+.card-info {
+  text-align: start;
+  width: 250px;
+}
+.search-container {
+  margin: 0px 10px 15px;
+  max-width: 440px;
+  min-width: 350px;
+  width: 90%;
+  height: 28px;
+  border-radius: 5px;
+  border: 2px solid rgba(0, 0, 0, 0.336);
+}
+.search-container::placeholder {
+  padding: 0 10px;
+  font-size: 15px;
+}
+.textBtn {
+  margin-left: 15px;
+  color: rgb(60, 61, 61);
+  font-weight: 700;
 }

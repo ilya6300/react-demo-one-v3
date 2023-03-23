@@ -1,0 +1,16 @@
+.btnActive {
+    width: 30px;
+    height: 30px;
+    background:yellowgreen ;
+    cursor: pointer;
+    margin-bottom: 5px;
+    box-shadow: 1px 1px 9px 5px yellowgreen;
+    border: 1px solid;
+  }
+  .btnNoActive {
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    margin-bottom: 5px;
+  }
+  

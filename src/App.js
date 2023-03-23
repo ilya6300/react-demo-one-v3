@@ -1,23 +1,22 @@
-import logo from './logo.svg';
-import './App.css';
+import Header from "./components/header/Header";
+import Oneapi from "./components/one/Oneapi";
+import Twoapi from "./components/two/Twoapi";
+
+import "./App.css?3";
+import Threeapi from "./components/three/Threeapi";
+import Fourapi from "./components/four/Fourapi";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Header title='Тестируй api с Илюхой'/>
+      <div className="app-container">
+      <Oneapi />
+      <Twoapi />
+      <Threeapi />
+      <Fourapi />
+      </div>
+
     </div>
   );
 }
