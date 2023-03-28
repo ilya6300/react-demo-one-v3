@@ -43,14 +43,20 @@
   cursor: pointer;
   max-width: 440px;
   width: 95%;
-  height: 90px;
+  /* height: 90px; */
   background: #ffffff;
   border-radius: 10px;
   box-shadow: 0px 0px 8px 1px black;
-  transition: transform 0.5s ease;
+  /* transition: transform 0.5s ease; */
+  padding: 10px 0px;
+}
+.card-container-one-section {
+  position: relative;
+  z-index: 2;
   display: flex;
   justify-content: space-evenly;
   align-items: center;
+  background: #ffffff;
 }
 .lilichka-good {
   display: flex;
@@ -58,15 +64,16 @@
   justify-content: center;
   gap: 10px;
 }
-.card:hover {
+/* .card:hover {
   transform: scale(1.08);
-}
+} */
 .card-avatar {
   width: 80px;
   height: 80px;
   border-radius: 50%;
 }
 .card-info {
+  /* border-right: 4px solid rgb(203 152 60 / 80%); */
   text-align: start;
   width: 250px;
 }
@@ -87,4 +94,62 @@
   margin-left: 15px;
   color: rgb(60, 61, 61);
   font-weight: 700;
+}
+.card-container-submenu-nav {
+  position: relative;
+  z-index: 2;
+  background: #ffffff;
+  display: flex;
+  flex-wrap: nowrap;
+  width: 100%;
+  height: 50px;
+}
+.nav-btn-submenu {
+  width: 52;
+  height: 52;
+  border: 3px solid rgb(203 152 60 / 80%);
+  display: flex;
+  align-items: center;
+  font-weight: 600;
+  border-radius: 5px;
+  transition: all 0.5s;
+  color: rgb(203 152 60 / 80%);
+}
+.nav-btn-submenu:hover {
+  background: rgb(203 152 60 / 70%);
+  color: #ffffff;
+  font-weight: 600;
+}
+.nav-border {
+  height: 20px;
+  width: 100%;
+  background: rgb(203 152 60 / 80%);
+  border-top: #272727 1px solid;
+  border-bottom: #272727 1px solid;
+  margin-top: 13px;
+}
+
+.card-container-submenu-name-animal {
+  width: 100%;
+  display: inline-block;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.card-container-submenu-name-animal-input {
+margin: 0 1%;
+height: 21px;
+}
+.card-container-submenu-name-animal-btn {
+  width: 55px;
+  height: 25px;
+  background: rgb(203 152 60 / 80%);
+  border: none;
+  font-weight: 600;
+  border-radius: 0 8px 8px 0;
+  cursor: pointer;
+  transition: color 0.5s ease;
+}
+.card-container-submenu-name-animal-btn:hover {
+  color: rgba(240, 248, 255, 0.90);
 }

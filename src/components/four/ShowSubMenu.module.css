@@ -1,0 +1,48 @@
+.cardContainerSubmenuContainer {
+  position: relative;
+  z-index: 0;
+    display: inline-block;
+    margin: auto;
+    text-align: start;
+    max-width: 365px;
+    width: 95%;
+    min-width: 350px;
+    display: flex;
+    flex-direction: column;
+    align-content: stretch;
+    align-items: flex-start;
+    animation: showSubMenu 1s forwards;
+  }
+
+  .cardContainerSubmenuContainerHidden {
+    /* display: none; */
+    margin-top: -68px;
+    margin: auto;
+    text-align: start;
+    max-width: 365px;
+    width: 95%;
+    min-width: 350px;
+    animation: hiddenSubMenu 0.5s forwards;
+  }
+  
+.hidden {
+  display: none;
+}
+ 
+  @keyframes showSubMenu {
+    0% {
+      margin-top: -68px;
+    }
+    100% {
+      margin-top: 0px;
+    }
+  }
+
+  @keyframes hiddenSubMenu {    
+    0% {
+      margin-top: 0px;
+    }
+    100% {
+      margin-top: -68px;
+  }
+  }
