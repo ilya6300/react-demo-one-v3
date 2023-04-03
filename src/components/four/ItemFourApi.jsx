@@ -2,14 +2,21 @@ import React, { useState } from "react";
 import cl from "./ShowSubMenu.module.css";
 
 const ItemFourApi = (props) => {
+  const [nameValue, setNameValue] = useState("");
+
   const [classSubMenu, setClassSubMenu] = useState(cl.hidden);
   const submenuContainerShow = () => {
+    setNameValue("");
     if (classSubMenu !== cl.cardContainerSubmenuContainer) {
       setClassSubMenu(cl.cardContainerSubmenuContainer);
     } else {
       setClassSubMenu(cl.cardContainerSubmenuContainerHidden);
     }
   };
+
+  // const hendlerInputNameAnimal = (e) => {
+  //   console.log(e.target.value)
+  // }
 
   return (
     <div className="card">
@@ -37,13 +44,13 @@ const ItemFourApi = (props) => {
           <div className="card-container-submenu-name-animal">
             <p>name animal: {props.card.name_animal}</p>
             <p>
-              Сменить имя:
-              <input
-                className="card-container-submenu-name-animal-input"
-                placeholder="Новое имя животного"
-              />
-              <button className="card-container-submenu-name-animal-btn">
-                Ввод
+              age: {props.card.age}
+              <button
+                className="card-container-submenu-name-animal-btn"
+                onClick={() => props.targetcard(props.card)}
+                // onClick={props.targetcard}
+              >
+                Сменить возрост
               </button>
             </p>
           </div>

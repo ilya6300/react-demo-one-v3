@@ -11,10 +11,9 @@ function App() {
     <div className="App">
       <Header title="Тестируй api с Илюхой" />
       <div className="app-container">
-        <p>тест 678</p>
-        {/* <Oneapi />
-        <Twoapi />
-        <Threeapi /> */}
+        {/* <Oneapi /> */}
+        {/* <Twoapi /> */}
+        {/* <Threeapi /> */}
         <Fourapi />
       </div>
     </div>

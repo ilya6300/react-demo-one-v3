@@ -1,10 +1,10 @@
-import localjson from './localJSON.json';
+import axios from "axios";
 
 export default class ApiFour {
- getUserFour = () => {
+  static async getUserFour() {
     try {
-      return localjson["data"];
-      // return responeFour["data"];
+      const response = await axios.get("http://localhost:3000/data");
+      return response.data;
     } catch (e) {
       console.log(e);
     }

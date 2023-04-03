@@ -137,11 +137,11 @@
   justify-content: space-between;
 }
 .card-container-submenu-name-animal-input {
-margin: 0 1%;
-height: 21px;
+  margin: 0 5%;
+  height: 21px;
 }
 .card-container-submenu-name-animal-btn {
-  width: 55px;
+  width: 120px;
   height: 25px;
   background: rgb(203 152 60 / 80%);
   border: none;
@@ -151,5 +151,32 @@ height: 21px;
   transition: color 0.5s ease;
 }
 .card-container-submenu-name-animal-btn:hover {
-  color: rgba(240, 248, 255, 0.90);
+  color: rgba(240, 248, 255, 0.9);
 }
+.modalBlockContent {
+  display: block;
+  margin: auto;
+  position: fixed;
+  z-index: 5;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 380px;
+  height: 300px;
+  border-radius: 5%;
+  box-shadow: 0px 0px 9px 0px black;
+  background: #ffffff;
+}
+/* .showModal {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background: #27272760;
+  display: block;
+  z-index: 4;
+} */
+/* .hiddenModal {
+  display: none;
+} */

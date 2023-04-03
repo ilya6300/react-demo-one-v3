@@ -3,8 +3,12 @@ import CheckboxMenu from "./CheckboxMenu";
 // import "./one.css";
 import FourApiList from "./FourApiList";
 // import ApiFour from './ApiFour'
-import localjson from "./localJSON.json";
+// import localjson from "...";
 import cl from "./BtnActive.module.css";
+import ApiFour from "./ApiFour";
+import ApiUpDate from "./ApiUpDate";
+import ModalBlock from "../ModalBlock";
+import axios from "axios";
 
 const Fourapi = () => {
   const [cardArr, setCardArr] = useState([]);
@@ -24,8 +28,10 @@ const Fourapi = () => {
 
   //
 
+  const [upDateA, setUpDateA] = useState(null)
+
   function handlerStatusOnline() {
-    console.log(classOnline)
+    console.log(classOnline);
     if (online) {
       setOnline(false);
       setClassOnline(cl.btnNoActive);
@@ -37,13 +43,13 @@ const Fourapi = () => {
     }
   }
   function handlerStatusOffline() {
-        console.log(classNotReg)
+    console.log(classNotReg);
     if (offline) {
       setOffline(false);
       console.log("offline", offline);
       setClassOffline(cl.btnNoActive);
     } else {
-      console.log(classOnline)
+      console.log(classOnline);
       setOffline(true);
       console.log("offline", offline);
       setClassOffline(cl.btnActive);
@@ -66,18 +72,10 @@ const Fourapi = () => {
 
   // Фильтр
 
-  // const cardsArr = useMemo(() => {
-  //   setCards(cardArr)
-  // }, [cardArr, cards, online, offline, notreg])
-
   const [search, setSearch] = useState("");
-  // const [cards, setCards] = useState([]);
   let cards = cardArr;
   const statusCard = useMemo(() => {
-    // setCards(cardArr)
-    // console.log(cards)
     cards = cardArr;
-    // console.log(cards)
     if (!online) {
       cards = [...cards].filter((card) => card.status !== "online");
     }
@@ -90,18 +88,6 @@ const Fourapi = () => {
       cards = [...cards].filter((card) => card.status !== "not registered");
     }
 
-    // if (!online) {
-    // return [...cardArr].filter((card) => card.status !== "online");
-    // }
-
-    // if (!offline) {
-    //  return [...cardArr].filter((card) => card.status !== "offline");
-    // }
-
-    // if (!notreg) {
-    // return [...cardArr].filter((card) => card.status !== "not registered");
-    // }
-
     return cards;
   }, [cardArr, online, offline, notreg, cards]);
 
@@ -109,30 +95,79 @@ const Fourapi = () => {
     if (search) {
       return statusCard.filter(
         (card) =>
-          // (online === true && card.status.includes("online")) &&
-          // offline === true &&
-          // notreg === true &&
-          // card.status.includes(online) ||
           card.first_name.toLowerCase().includes(search.toLowerCase()) ||
           card.last_name.toLowerCase().includes(search.toLowerCase())
       );
     }
-    // return cardArr;
     return statusCard;
   }, [cardArr, search, statusCard]);
 
   //
 
-  function fettchUsers() {
+  async function fettchUsers() {
     setIsOneApiLoading(true);
-    const cardArr = localjson["data"];
+    const cardArr = await ApiFour.getUserFour();
     setCardArr(cardArr);
     setIsOneApiLoading(false);
   }
 
   useEffect(() => {
     fettchUsers();
-  }, []);
+  }, [upDateA]);
+
+  const [visibleBlock, setVisibleBlock] = useState(false);
+  const [targetCard, setTargetCard] = useState(null);
+  const [checkBtn, setCheckBtn] = useState("");
+
+  const targetCardFucntion = (card) => {
+    // setTargetCard(cardArr.find((t) => t.id === card.id));
+    setTargetCard(card.id);
+    setVisibleBlock(true);
+  };
+
+  // Обновление массива
+
+  const upDateAgeDog = () => {
+    setCardArr(
+      cardArr.map((upCard) => {
+        console.log(upCard.id, targetCard);
+        if (upCard.id === targetCard) {
+          if (upCard.age === "puppy") {
+            return { ...upCard, age: "junior" };
+          } else if (upCard.age === "junior") {
+            return { ...upCard, age: "adult" };
+          } else {
+            return upCard;
+          }
+        } else {
+          return upCard;
+        }
+      })
+    );
+    updateAnimal();
+  };
+
+  // Запись в api
+
+  // async function updateAnimal() {
+  //   // cardArr = await ApiUpDate.getApiUpDate();
+  //   // setCardArr(await ApiUpDate.getApiUpDate());
+  //   const cardArr = axios.put("http://localhost:3000/data")
+  //   .then(response => console.log(response.data))
+  //   setCardArr(cardArr)
+  // }
+
+
+
+
+  function updateAnimal() {
+    // cardArr = await ApiUpDate.getApiUpDate();
+    // setCardArr(await ApiUpDate.getApiUpDate());
+    axios.put("http://localhost:3000/data", cardArr)
+    .then(response => setUpDateA(response.data.upDateA))
+  }
+  
+  // 
 
   return (
     <div className="one-container">
@@ -156,8 +191,30 @@ const Fourapi = () => {
       {isOneApiLoading ? (
         <h2>"Идёт загрузка, пожалуйста, ждите..."</h2>
       ) : (
-        <FourApiList cardArr={searchAndStatusCard} />
+        <FourApiList
+          cardArr={searchAndStatusCard}
+          targetcard={targetCardFucntion}
+        />
       )}
+      <ModalBlock visible={visibleBlock}>
+        <button onClick={() => setVisibleBlock(false)}>Отмена</button>
+        <p>
+          Просмотреть id элемента по таргету
+          <button onClick={() => console.log(targetCard)}>Получить</button>
+        </p>
+        <p>
+          Увеличить возрост собаке
+          <button onClick={upDateAgeDog}>Увеличить</button>
+        </p>
+        <p>
+          Прочитать массив
+          <button onClick={() => console.log(cardArr)}>cardArr</button>
+        </p>
+        <p>
+          Получить bd.json
+          <button onClick={() => fettchUsers()}>Получить</button>
+        </p>
+      </ModalBlock>
       <p className="info-api">Список из локального файла JSON</p>
     </div>
   );
