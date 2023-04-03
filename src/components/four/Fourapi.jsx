@@ -149,13 +149,6 @@ const Fourapi = () => {
 
   // Запись в api
 
-  // async function updateAnimal() {
-  //   // cardArr = await ApiUpDate.getApiUpDate();
-  //   // setCardArr(await ApiUpDate.getApiUpDate());
-  //   const cardArr = axios.put("http://localhost:3000/data")
-  //   .then(response => console.log(response.data))
-  //   setCardArr(cardArr)
-  // }
 
 
 
