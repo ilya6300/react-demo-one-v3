@@ -15,7 +15,7 @@
       "last_name": "Bluth",
       "home_animal": "Dog",
       "name_animal": "Cezar'",
-      "age": "puppy",
+      "age": "adult",
       "avatar": "https://reqres.in/img/faces/1-image.jpg"
     },
     {
@@ -26,7 +26,7 @@
       "last_name": "Weaver",
       "home_animal": "Dog",
       "name_animal": "Maria",
-      "age": "junior",
+      "age": "adult",
       "avatar": "https://reqres.in/img/faces/2-image.jpg"
     },
     {

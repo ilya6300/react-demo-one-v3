@@ -6,7 +6,7 @@ export default class ApiOne {
       const responeThree = await axios.get(
         "https://reqres.in/api/users?page=2"
       );
-      console.log(responeThree.data["data"]);
+      // console.log(responeThree.data["data"]);
       return responeThree.data["data"];
     } catch (e) {
       console.log(e);

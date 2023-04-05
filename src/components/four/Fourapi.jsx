@@ -27,8 +27,8 @@ const Fourapi = () => {
   const [classNotReg, setClassNotReg] = useState(cl.btnActive);
 
   //
-
-  const [upDateA, setUpDateA] = useState(null)
+  const [newStatus, setNewStatus] = useState (false);
+  const [upDateA, setUpDateA] = useState(null);
 
   function handlerStatusOnline() {
     console.log(classOnline);
@@ -112,8 +112,21 @@ const Fourapi = () => {
   }
 
   useEffect(() => {
-    fettchUsers();
-  }, [upDateA]);
+    // console.log(newStatus)
+    if (newStatus) {
+      console.log('updateAnimal');
+      updateAnimal();
+      fettchUsers();
+      setNewStatus(false)
+    } else {
+      fettchUsers();
+    }
+  
+  }, [newStatus]);
+
+  // useEffect (() => {
+  //   updateAnimal();
+  // }, [newStatus])
 
   const [visibleBlock, setVisibleBlock] = useState(false);
   const [targetCard, setTargetCard] = useState(null);
@@ -127,15 +140,21 @@ const Fourapi = () => {
 
   // Обновление массива
 
+
+
   const upDateAgeDog = () => {
     setCardArr(
       cardArr.map((upCard) => {
-        console.log(upCard.id, targetCard);
+        // console.log(upCard.id, targetCard);
         if (upCard.id === targetCard) {
           if (upCard.age === "puppy") {
-            return { ...upCard, age: "junior" };
+            setNewStatus("junior")
+            console.log(newStatus)
+            return { ...upCard, age: newStatus };
           } else if (upCard.age === "junior") {
-            return { ...upCard, age: "adult" };
+            setNewStatus("adult")
+            console.log(newStatus)
+            return { ...upCard, age: newStatus };
           } else {
             return upCard;
           }
@@ -144,23 +163,29 @@ const Fourapi = () => {
         }
       })
     );
-    updateAnimal();
+    // updateAnimal();
   };
 
   // Запись в api
 
-
-
-
-
   function updateAnimal() {
     // cardArr = await ApiUpDate.getApiUpDate();
     // setCardArr(await ApiUpDate.getApiUpDate());
-    axios.put("http://localhost:3000/data", cardArr)
-    .then(response => setUpDateA(response.data.upDateA))
+    // axios.patch("http://localhost:3000/data", cardArr)
+    // .then(response => setUpDateA(response.data.upDateA))
+    //
+    // console.log(targetCard);
+    //
+    // console.log(newStatus)
+    axios.patch("http://localhost:3000/data/"+targetCard, {
+       age: newStatus,
+    })
+    .then((response) => response.data)
+    .catch((e) => console.log(e))
+    // fettchUsers()
   }
-  
-  // 
+
+  //
 
   return (
     <div className="one-container">
@@ -205,7 +230,7 @@ const Fourapi = () => {
         </p>
         <p>
           Получить bd.json
-          <button onClick={() => fettchUsers()}>Получить</button>
+          {/* <button onClick={() => fettchUsers()}>Получить</button> */}
         </p>
       </ModalBlock>
       <p className="info-api">Список из локального файла JSON</p>
