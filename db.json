@@ -26,7 +26,7 @@
       "last_name": "Weaver",
       "home_animal": "Dog",
       "name_animal": "Maria",
-      "age": "adult",
+      "age": "junior",
       "avatar": "https://reqres.in/img/faces/2-image.jpg"
     },
     {
@@ -37,7 +37,7 @@
       "last_name": "Wong",
       "home_animal": "Dog",
       "name_animal": "Fucki",
-      "age": "puppy",
+      "age": "adult",
       "avatar": "https://reqres.in/img/faces/3-image.jpg"
     },
     {

@@ -1,14 +1,12 @@
 import React, { useEffect, useMemo, useState } from "react";
 import CheckboxMenu from "./CheckboxMenu";
-// import "./one.css";
 import FourApiList from "./FourApiList";
-// import ApiFour from './ApiFour'
-// import localjson from "...";
 import cl from "./BtnActive.module.css";
 import ApiFour from "./ApiFour";
-import ApiUpDate from "./ApiUpDate";
 import ModalBlock from "../ModalBlock";
 import axios from "axios";
+import BtnAddCard from "./BtnAddCard";
+import AddCardForm from "./AddCardForm";
 
 const Fourapi = () => {
   const [cardArr, setCardArr] = useState([]);
@@ -20,15 +18,13 @@ const Fourapi = () => {
   const [notreg, setNotreg] = useState(true);
 
   // Стилизация
-  // const visibleClassesActive = [cl.btnActive];
-  // const visibleClasses = [cl.btnNoActive];
+
   const [classOnline, setClassOnline] = useState(cl.btnActive);
   const [classOffline, setClassOffline] = useState(cl.btnActive);
   const [classNotReg, setClassNotReg] = useState(cl.btnActive);
 
   //
-  const [newStatus, setNewStatus] = useState (false);
-  const [upDateA, setUpDateA] = useState(null);
+  const [newStatus, setNewStatus] = useState(false);
 
   function handlerStatusOnline() {
     console.log(classOnline);
@@ -114,33 +110,29 @@ const Fourapi = () => {
   useEffect(() => {
     // console.log(newStatus)
     if (newStatus) {
-      console.log('updateAnimal');
+      console.log("updateAnimal");
       updateAnimal();
       fettchUsers();
-      setNewStatus(false)
+      setNewStatus(false);
     } else {
       fettchUsers();
     }
-  
   }, [newStatus]);
-
-  // useEffect (() => {
-  //   updateAnimal();
-  // }, [newStatus])
 
   const [visibleBlock, setVisibleBlock] = useState(false);
   const [targetCard, setTargetCard] = useState(null);
+  const [targetCardFull, setTargetCardFull] = useState(null);
   const [checkBtn, setCheckBtn] = useState("");
 
   const targetCardFucntion = (card) => {
-    // setTargetCard(cardArr.find((t) => t.id === card.id));
+    setTargetCardFull(cardArr.find((t) => t.id === card.id));
     setTargetCard(card.id);
+    // setTargetCardFull(card)
+    console.log(targetCardFull);
     setVisibleBlock(true);
   };
 
   // Обновление массива
-
-
 
   const upDateAgeDog = () => {
     setCardArr(
@@ -148,12 +140,12 @@ const Fourapi = () => {
         // console.log(upCard.id, targetCard);
         if (upCard.id === targetCard) {
           if (upCard.age === "puppy") {
-            setNewStatus("junior")
-            console.log(newStatus)
+            setNewStatus("junior");
+            console.log(newStatus);
             return { ...upCard, age: newStatus };
           } else if (upCard.age === "junior") {
-            setNewStatus("adult")
-            console.log(newStatus)
+            setNewStatus("adult");
+            console.log(newStatus);
             return { ...upCard, age: newStatus };
           } else {
             return upCard;
@@ -163,26 +155,27 @@ const Fourapi = () => {
         }
       })
     );
-    // updateAnimal();
+    setVisibleBlock(false);
   };
 
   // Запись в api
 
   function updateAnimal() {
-    // cardArr = await ApiUpDate.getApiUpDate();
-    // setCardArr(await ApiUpDate.getApiUpDate());
-    // axios.patch("http://localhost:3000/data", cardArr)
-    // .then(response => setUpDateA(response.data.upDateA))
-    //
-    // console.log(targetCard);
-    //
-    // console.log(newStatus)
-    axios.patch("http://localhost:3000/data/"+targetCard, {
-       age: newStatus,
-    })
-    .then((response) => response.data)
-    .catch((e) => console.log(e))
-    // fettchUsers()
+    axios
+      .patch("http://localhost:3000/data/" + targetCard, {
+        age: newStatus,
+      })
+      .then((response) => response.data)
+      .catch((e) => console.log(e));
+  }
+
+  // Создание новой карты
+
+  const [visibleNewCard, setVisibleNewCard] = useState(false);
+  const createCard = (newCard) => {
+    setCardArr([...cardArr, newCard]);
+    setVisibleNewCard(false)
+    console.log(cardArr)
   }
 
   //
@@ -196,7 +189,7 @@ const Fourapi = () => {
         value={search}
         onChange={(e) => setSearch(e.target.value)}
       />
-      <div>
+      <div className="container-control-list">
         <CheckboxMenu
           cls_btn_online={classOnline}
           cls_btn_offline={classOffline}
@@ -205,7 +198,18 @@ const Fourapi = () => {
           handlerStatusOffline={handlerStatusOffline}
           handlerStatusNotReg={handlerStatusNotReg}
         />
+        <div>
+        <BtnAddCard
+          onClick={() =>
+            !visibleNewCard ? setVisibleNewCard(true) : setVisibleNewCard(false)
+          }
+        >
+          Добавить пользователя
+        </BtnAddCard>
+        <button onClick={() => console.log(cardArr)}>Получить массив cardArr</button>
+        </div>
       </div>
+      {visibleNewCard ? <AddCardForm cardArr={cardArr} create={createCard}/> : <span></span>}
       {isOneApiLoading ? (
         <h2>"Идёт загрузка, пожалуйста, ждите..."</h2>
       ) : (
@@ -214,26 +218,39 @@ const Fourapi = () => {
           targetcard={targetCardFucntion}
         />
       )}
-      <ModalBlock visible={visibleBlock}>
-        <button onClick={() => setVisibleBlock(false)}>Отмена</button>
-        <p>
-          Просмотреть id элемента по таргету
-          <button onClick={() => console.log(targetCard)}>Получить</button>
-        </p>
-        <p>
-          Увеличить возрост собаке
-          <button onClick={upDateAgeDog}>Увеличить</button>
-        </p>
-        <p>
-          Прочитать массив
-          <button onClick={() => console.log(cardArr)}>cardArr</button>
-        </p>
-        <p>
-          Получить bd.json
-          {/* <button onClick={() => fettchUsers()}>Получить</button> */}
-        </p>
-      </ModalBlock>
-      <p className="info-api">Список из локального файла JSON</p>
+      {visibleBlock ? (
+        <ModalBlock visible={visibleBlock}>
+          <h3>Карточка пользователя</h3>
+          <ul className="modal-card-style">
+            <li>id карточки - {targetCard}</li>
+            <li>Имя: {targetCardFull.first_name}</li>
+            <li>Домашнее животное {targetCardFull.home_animal}</li>
+            <li>
+              Кличка {targetCardFull.home_animal} - {targetCardFull.name_animal}
+            </li>
+            <li>
+              возраст {targetCardFull.name_animal} - {targetCardFull.age}
+            </li>
+            {targetCardFull.age !== "adult" ? (
+              <li>
+                Увеличить возрост {targetCardFull.name_animal}{" "}
+                <button onClick={upDateAgeDog}>Увеличить возраст</button>
+              </li>
+            ) : (
+              <li>
+                {targetCardFull.name_animal} уже взрослый, возраст увеличить
+                нельзя
+              </li>
+            )}
+            <li>
+              <button onClick={() => setVisibleBlock(false)}>Отмена</button>
+            </li>
+          </ul>
+        </ModalBlock>
+      ) : (
+        <p></p>
+      )}
+      <p className="info-api">Здесь могла быть ваша реклама</p>
     </div>
   );
 };

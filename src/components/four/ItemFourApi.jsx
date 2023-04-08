@@ -14,9 +14,6 @@ const ItemFourApi = (props) => {
     }
   };
 
-  // const hendlerInputNameAnimal = (e) => {
-  //   console.log(e.target.value)
-  // }
 
   return (
     <div className="card">
@@ -50,7 +47,7 @@ const ItemFourApi = (props) => {
                 onClick={() => props.targetcard(props.card)}
                 // onClick={props.targetcard}
               >
-                Сменить возрост
+                Сменить возраст
               </button>
             </p>
           </div>
