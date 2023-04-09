@@ -7,7 +7,7 @@ export default class ApiFour {
       // return response.data;
 
       const response = await axios.get("http://localhost:3000/data");
-      // console.log(response.data['1'])
+      // console.log(response.data)
       return response.data;
 
     } catch (e) {

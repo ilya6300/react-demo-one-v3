@@ -23,6 +23,8 @@ const Fourapi = () => {
   const [classOffline, setClassOffline] = useState(cl.btnActive);
   const [classNotReg, setClassNotReg] = useState(cl.btnActive);
 
+  const [classCard, setClassCard] = useState([]);
+
   //
   const [newStatus, setNewStatus] = useState(false);
 
@@ -66,6 +68,32 @@ const Fourapi = () => {
 
   //
 
+  const [list, setList] = useState(true);
+
+  const colorCard = useMemo(() => {
+    cardArr.map((card) => {
+      if (list) {
+        console.log('list', list)
+        if (card.age === "puppy") {
+          card.className = "card-puppy";
+        } else if (card.age === "junior") {
+          card.className = "card-junior";
+        } else if (card.age === "adult") {
+          card.className = "card-adult";
+        } else if (!list){
+          console.log('list', list)
+          if (card.age === "puppy") {
+            card.className = "card-puppy-tiles";
+          } else if (card.age === "junior") {
+            card.className = "card-junior-tiles";
+          } else if (card.age === "adult") {
+            card.className = "card-adult-tiles";
+          }
+        }
+      }
+    });
+  }, [cardArr, list]);
+
   // Фильтр
 
   const [search, setSearch] = useState("");
@@ -100,6 +128,8 @@ const Fourapi = () => {
 
   //
 
+  const userURL = "http://localhost:3000/data";
+
   async function fettchUsers() {
     setIsOneApiLoading(true);
     const cardArr = await ApiFour.getUserFour();
@@ -113,11 +143,12 @@ const Fourapi = () => {
       console.log("updateAnimal");
       updateAnimal();
       fettchUsers();
+
       setNewStatus(false);
     } else {
       fettchUsers();
     }
-  }, [newStatus]);
+  }, [newStatus, userURL]);
 
   const [visibleBlock, setVisibleBlock] = useState(false);
   const [targetCard, setTargetCard] = useState(null);
@@ -174,21 +205,44 @@ const Fourapi = () => {
   const [visibleNewCard, setVisibleNewCard] = useState(false);
   const createCard = (newCard) => {
     setCardArr([...cardArr, newCard]);
-    setVisibleNewCard(false)
-    console.log(cardArr)
-  }
+    setVisibleNewCard(false);
+    console.log(cardArr);
+  };
 
-  //
+  const cancelNewCard = () => {
+    setVisibleNewCard(false);
+  };
+
+  // Переключение интерфейса
+
+  const setListFalse =  () => {
+    setList(false)
+    console.log(list)
+  }
 
   return (
     <div className="one-container">
       <h2 className="title">Api список из файла json</h2>
-      <input
-        className="search-container"
-        placeholder="Поиск по имени и юзернейму"
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-      />
+      <div className="container-interface">
+        <input
+          className="search-container"
+          placeholder="Поиск по имени и юзернейму"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
+        <div>
+          <img
+            className="interfece-pane-btn"
+            src="https://cdn-icons-png.flaticon.com/512/483/483334.png"
+            onClick={() => setList(true)}
+          />
+          <img
+            className="interfece-pane-btn"
+            src="https://cdn-icons-png.flaticon.com/512/1218/1218403.png"
+            onClick={setListFalse}
+          />
+        </div>
+      </div>
       <div className="container-control-list">
         <CheckboxMenu
           cls_btn_online={classOnline}
@@ -199,21 +253,34 @@ const Fourapi = () => {
           handlerStatusNotReg={handlerStatusNotReg}
         />
         <div>
-        <BtnAddCard
-          onClick={() =>
-            !visibleNewCard ? setVisibleNewCard(true) : setVisibleNewCard(false)
-          }
-        >
-          Добавить пользователя
-        </BtnAddCard>
-        <button onClick={() => console.log(cardArr)}>Получить массив cardArr</button>
+          <BtnAddCard
+            onClick={() =>
+              !visibleNewCard
+                ? setVisibleNewCard(true)
+                : setVisibleNewCard(false)
+            }
+          >
+            Добавить пользователя
+          </BtnAddCard>
+          <button onClick={() => console.log(cardArr)}>
+            Получить массив cardArr
+          </button>
         </div>
       </div>
-      {visibleNewCard ? <AddCardForm cardArr={cardArr} create={createCard}/> : <span></span>}
+      {visibleNewCard ? (
+        <AddCardForm
+          cancel={cancelNewCard}
+          cardArr={cardArr}
+          create={createCard}
+        />
+      ) : (
+        <span></span>
+      )}
       {isOneApiLoading ? (
         <h2>"Идёт загрузка, пожалуйста, ждите..."</h2>
       ) : (
         <FourApiList
+          list={list}
           cardArr={searchAndStatusCard}
           targetcard={targetCardFucntion}
         />

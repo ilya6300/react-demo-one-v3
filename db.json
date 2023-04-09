@@ -15,7 +15,7 @@
       "last_name": "Bluth",
       "home_animal": "Dog",
       "name_animal": "Cezar'",
-      "age": "adult",
+      "age": "junior",
       "avatar": "https://reqres.in/img/faces/1-image.jpg"
     },
     {
@@ -37,7 +37,7 @@
       "last_name": "Wong",
       "home_animal": "Dog",
       "name_animal": "Fucki",
-      "age": "adult",
+      "age": "puppy",
       "avatar": "https://reqres.in/img/faces/3-image.jpg"
     },
     {
@@ -72,6 +72,20 @@
       "name_animal": "Baks",
       "age": "junior",
       "avatar": "https://reqres.in/img/faces/6-image.jpg"
+    }
+  ],
+  "dog": [
+    {
+      "id": 11,
+      "age": "puppy"
+    },
+    {
+      "id": 12,
+      "age": "junior"
+    },
+    {
+      "id": 13,
+      "age": "adult"
     }
   ],
   "comments": [

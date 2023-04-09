@@ -5,6 +5,7 @@ const ItemFourApi = (props) => {
   const [nameValue, setNameValue] = useState("");
 
   const [classSubMenu, setClassSubMenu] = useState(cl.hidden);
+
   const submenuContainerShow = () => {
     setNameValue("");
     if (classSubMenu !== cl.cardContainerSubmenuContainer) {
@@ -15,8 +16,9 @@ const ItemFourApi = (props) => {
   };
 
 
+
   return (
-    <div className="card">
+    <div className={props.card.className}>
       <div className="card-container-one-section">
         <div className="card-info">
           <p>name: {props.card.first_name}</p>
